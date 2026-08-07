@@ -41,11 +41,9 @@ VSDIAT-Chip-Design
 │   ├── good_mux.v
 │   ├── tb_good_mux.v
 │   ├── good_mux_netlist.v
-│   └── Images
-│       ├── rtl_simulation.png
-│       ├── gtkwave_output.png
-│       └── yosys_output.png
-│
+│   ├── rtl_simulation.png
+│   ├── gtkwave_output.png
+│   └── yosys_output.png
 ├── Day_2
 ├── Day_3
 ├── Day_4
