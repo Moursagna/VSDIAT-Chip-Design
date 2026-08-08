@@ -8,7 +8,7 @@ It contains RTL design experiments, simulation results, synthesis reports, gener
 
 ## 👨‍🎓 Student Information
 
-- **Name:** Moursagna
+- **Name:** Moursagna Rao
 - **University:** Anurag University
 - **Program:** B.Tech
 - **Branch:** Electronics and Communication Engineering (ECE)
@@ -31,7 +31,7 @@ It contains RTL design experiments, simulation results, synthesis reports, gener
 
 # Repository Structure
 
-```
+```text
 VSDIAT-Chip-Design
 │
 ├── README.md
@@ -41,12 +41,14 @@ VSDIAT-Chip-Design
 │   ├── good_mux.v
 │   ├── tb_good_mux.v
 │   ├── good_mux_netlist.v
-│   ├── rtl_simulation.png
-│   ├── gtkwave_output.png
-│   └── yosys_output.png
+│   └── simulation and synthesis results
+│
 ├── Day_2
-├── Day_3
-├── Day_4
+│   ├── README.md
+│   ├── 01_Hierarchical_vs_Flat_Synthesis
+│   ├── 02_Flip_Flop_Coding_Styles
+│   └── 03_Synthesis_Optimizations
+│
 └── Resources
 ```
 
@@ -55,13 +57,24 @@ VSDIAT-Chip-Design
 # Course Progress
 
 | Day | Topic | Status |
-|------|---------------------------------------------|:------:|
-| Day 1 | Introduction to Verilog RTL Design | ✅ |
-| Day 2 | RTL Coding Styles | ⏳ |
-| Day 3 | Combinational Logic Optimization | ⏳ |
-| Day 4 | Sequential Logic | ⏳ |
+|---|---|---|
+| Day 1 | Introduction to Verilog RTL Design and Synthesis | ✅ Completed |
+| Day 2 | RTL Synthesis and Optimization | ✅ Completed |
+| Day 3 | Upcoming | ⏳ |
+| Day 4 | Upcoming | ⏳ |
 
 This table will be updated as I progress through the VSDIAT program.
+
+---
+
+## Day 2 Highlights
+
+- Studied hierarchical and flat synthesis
+- Explored flip-flop coding styles
+- Synthesized designs using Yosys
+- Mapped RTL designs to SKY130 standard cells
+- Analyzed asynchronous and synchronous reset behavior
+- Observed synthesis optimization for arithmetic and Boolean logic
 
 ---
 
@@ -72,7 +85,7 @@ This table will be updated as I progress through the VSDIAT program.
 - Perform RTL simulation using Icarus Verilog.
 - Analyze waveforms using GTKWave.
 - Synthesize RTL using Yosys.
-- Generate gate-level netlists.
+- Generate synthesized gate-level netlists.
 - Map designs to the SKY130 Standard Cell Library.
 - Build a strong foundation in Digital VLSI Design.
 
