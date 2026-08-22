@@ -12,11 +12,11 @@ The experiments demonstrate synthesis optimization of counter logic and the resu
 
 ### Counter Optimization – Experiment 1
 
-!(counter_opt_syn.png)
+![Counter Optimization – Experiment 1](counter_opt_syn.png)
 
 ### Counter Optimization – Experiment 2
 
-!(counter_opt2_syn.png)
+![Counter Optimization – Experiment 2](counter_opt2_syn.png)
 
 ## Key Learning
 
