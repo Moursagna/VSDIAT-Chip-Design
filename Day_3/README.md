@@ -2,34 +2,33 @@
 
 ## Overview
 
-Day 3 focused on understanding how RTL coding style affects synthesized hardware and how synthesis tools optimize RTL descriptions.
+Day 3 focused on understanding how different RTL descriptions are optimized during synthesis and how the resulting logic is mapped to SKY130 standard cells.
 
-The experiments covered:
+The work was divided into three major areas:
+
 - Combinational logic optimization
 - Sequential logic optimization
 - Counter optimization
-- Constant propagation
-- Logic simplification
-- Multiple-module optimization
-- Mapping optimized RTL to SKY130 standard cells
 
-The designs were simulated where applicable and synthesized using Yosys with the SKY130 standard-cell library.
+The synthesized designs were analyzed using Yosys and the resulting logic structures were inspected using synthesis evidence and netlist visualization.
 
 ---
 
 ## 1. Combinational Optimization
 
-This section demonstrates how synthesis tools optimize combinational RTL by simplifying Boolean expressions, propagating constants, removing redundant logic, and optimizing multiple-module designs.
+This section explores how synthesis tools simplify and optimize combinational RTL descriptions.
+
+The experiments include individual optimization cases as well as optimization across multiple modules.
 
 ### Experiments
 
-| Experiment | Focus |
-|---|---|
-| `opt_check` | Combinational optimization |
-| `opt_check2` | Logic simplification |
-| `opt_check3` | Constant propagation / optimization |
-| `opt_check4` | Further combinational optimization |
-| `multiple_module_opt` | Optimization across module hierarchy |
+- `opt_check`
+- `opt_check2`
+- `opt_check3`
+- `opt_check4`
+- `multiple_module_opt_check`
+
+The corresponding synthesis evidence is documented inside the module folder.
 
 📁 [01_Combinational_Optimization](./01_Combinational_Optimization/)
 
@@ -37,11 +36,19 @@ This section demonstrates how synthesis tools optimize combinational RTL by simp
 
 ## 2. Sequential Optimization
 
-This section explores synthesis optimization of sequential logic, including constant-driven flip-flops and cases where sequential logic can be simplified or removed.
+This section explores optimization of sequential RTL using DFF-based designs.
+
+The experiments examine different constant-driven DFF configurations and their resulting synthesized structures.
 
 ### Experiments
 
-The experiments demonstrate different DFF configurations and their resulting synthesized structures.
+- DFF Constant 1
+- DFF Constant 2
+- DFF Constant 3
+- DFF Constant 4
+- DFF Constant 5
+
+The corresponding synthesis and simulation evidence is documented inside the module folder.
 
 📁 [02_Sequential_Optimization](./02_Sequential_Optimization/)
 
@@ -49,38 +56,35 @@ The experiments demonstrate different DFF configurations and their resulting syn
 
 ## 3. Counter Optimization
 
-This section examines how synthesis tools optimize counter-based RTL and map the resulting logic to standard cells.
+This section explores how synthesis tools optimize counter-based RTL and map the resulting logic to SKY130 standard cells.
 
-### Experiments
-
-The counter experiments demonstrate optimization and SKY130 standard-cell mapping of counter logic.
+The experiments demonstrate different counter optimization cases and their resulting synthesized structures.
 
 📁 [03_Counter_Optimization](./03_Counter_Optimization/)
 
 ---
 
-## Synthesis Technology
+## Tools & Technology
 
-The designs were synthesized using:
+The Day 3 experiments used:
 
-- **Yosys** – RTL synthesis
-- **SKY130** – open-source standard-cell technology
-- **GTKWave** – waveform analysis where applicable
-- **Graphviz / Yosys netlist visualization** – synthesized logic inspection
+- **Yosys** – RTL synthesis and optimization
+- **SKY130** – standard-cell library
+- **GTKWave** – waveform inspection
+- **Graphviz / Yosys Netlist Visualization** – synthesized logic inspection
 
 ---
 
 ## Key Learning Outcomes
 
-Through these experiments, I learned:
+Through Day 3, I learned:
 
-- How synthesis optimizes RTL descriptions
-- How constant propagation simplifies logic
-- How redundant logic can be removed
-- How combinational logic is transformed into standard cells
-- How sequential logic is optimized
-- How counters are represented after synthesis
-- How RTL coding style influences synthesized hardware
+- How synthesis tools optimize RTL descriptions
+- How combinational logic can be simplified during synthesis
+- How constant values influence synthesized logic
+- How sequential RTL is optimized
+- How counter-based RTL is synthesized
+- How optimized RTL is mapped to SKY130 standard cells
 - How to inspect synthesized netlists using Yosys
 
 ---
@@ -89,4 +93,4 @@ Through these experiments, I learned:
 
 **Day 3 – Completed ✅**
 
-The experiments and synthesis evidence have been documented in the corresponding sections.
+The three optimization areas and their corresponding synthesis evidence have been organized into separate module folders.
