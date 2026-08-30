@@ -20,6 +20,8 @@ The top-level module is:
 vsdbabysoc
 ```
 
+---
+
 ## BabySoC Architecture
 
 ```text
@@ -44,6 +46,9 @@ vsdbabysoc
                                                      │
                                                      ▼
                                                     OUT
+```
+
+---
 
 ## Design Hierarchy
 
@@ -465,6 +470,30 @@ Static Timing Analysis will be used later to verify timing constraints more syst
 
 ---
 
+# Results
+
+The following images provide visual evidence of the BabySoC implementation flow.
+
+## BabySoC Architecture
+
+![BabySoC Architecture](results/architecture.png)
+
+## Pre-Synthesis Simulation
+
+![Pre-Synthesis Waveform](results/pre_synthesis_waveform.png)
+
+## Synthesis Results
+
+![Synthesis Statistics](results/synthesis_statistics1.png)
+
+![Synthesis Statistics](results/synthesis_statistics2.png)
+
+## Post-Synthesis Simulation
+
+![Post-Synthesis Waveform](results/post_synthesis_waveform.png)
+
+---
+
 # Key Learning
 
 Through the BabySoC implementation, I learned how an RTL-based SoC moves through the initial stages of an ASIC design flow.
@@ -538,6 +567,5 @@ GDSII
 
 ## Project Status
 
-**Current milestone:** RTL → Post-Synthesis Simulation ✅
+**Current :** RTL → Post-Synthesis Simulation ✅
 
-**Next milestone:** Static Timing Analysis 🔜
