@@ -51,7 +51,7 @@ The physical design flow studied in this module uses open-source EDA tools toget
 
 The simplified RTL-to-GDSII implementation flow is:
 
-![Simplified RTL to GDSII Flow](images/rtl_to_gdsii_flow.png)
+![Simplified RTL to GDSII Flow](rtl_to_gdsii_flow.png)
 
 ---
 
@@ -69,7 +69,7 @@ Some of the tools and components used in the open-source ASIC ecosystem include:
 - QFlow
 - Fault
 
-![Open-Source EDA Tools](images/opensource_eda_tools.png)
+![Open-Source EDA Tools](opensource_eda_tools.png)
 
 ---
 
@@ -169,9 +169,9 @@ The synthesis generated the following statistics:
 
 The synthesis report also contains the breakdown of the different SKY130 standard-cell instances used in the synthesized design.
 
-![Synthesis Statistics](images/synthesis_statistics_1.png)
+![Synthesis Statistics](synthesis_statistics_1.png)
 
-![Synthesis Cell Statistics and Chip Area](images/synthesis_statistics_2.png)
+![Synthesis Cell Statistics and Chip Area](synthesis_statistics_2.png)
 
 ---
 
