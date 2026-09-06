@@ -2,9 +2,7 @@
 
 ## Overview
 
-This module introduces the physical design stage of the ASIC design flow and the open-source tools used to transform a synthesized RTL design into a physical chip layout.
-
-The training covers the SKY130 PDK, OpenLane, the RTL-to-GDSII flow, synthesis, static timing analysis, floorplanning, placement, clock tree synthesis, routing, parasitic extraction, physical verification and GDSII generation.
+This module introduces the physical design stage of the ASIC design flow and the open-source tools used to transform a synthesized RTL design into a physical chip implementation.
 
 ---
 
@@ -36,13 +34,11 @@ Post-Route STA
 Physical Verification
     ↓
 GDSII
-
-Each stage transforms or analyzes the design while considering increasingly realistic physical implementation constraints.
 ```
 
 ## Open-Source ASIC Design Flow
 
-The physical design flow studied in this module uses open-source tools and the **SKY130 Process Design Kit (PDK)**.
+The physical design flow studied in this module uses open-source EDA tools together with the **SKY130 Process Design Kit (PDK)**.
 
 ### Major Components
 
@@ -52,6 +48,28 @@ The physical design flow studied in this module uses open-source tools and the *
 - **OpenROAD** – Physical design implementation
 - **Magic** – Layout viewing and physical verification
 - **SKY130** – Open-source 130 nm technology PDK
+
+The simplified RTL-to-GDSII implementation flow is:
+
+![Simplified RTL to GDSII Flow](images/rtl_to_gdsii_flow.png)
+
+---
+
+## Open-Source EDA Tools
+
+OpenLane integrates several open-source tools to automate different stages of the ASIC implementation flow.
+
+Some of the tools and components used in the open-source ASIC ecosystem include:
+
+- Yosys
+- OpenROAD
+- Magic
+- KLayout
+- ABC
+- QFlow
+- Fault
+
+![Open-Source EDA Tools](images/opensource_eda_tools.png)
 
 ---
 
@@ -69,7 +87,7 @@ The SKY130 PDK provides information such as:
 - Timing and power models
 - Layout information
 
-The PDK therefore forms the technology interface between the design tools and the semiconductor manufacturing process.
+The PDK therefore acts as the technology interface between the design tools and the semiconductor manufacturing process.
 
 ---
 
@@ -88,7 +106,7 @@ Floorplanning
  ↓
 Placement
  ↓
-CTS
+Clock Tree Synthesis
  ↓
 Routing
  ↓
@@ -99,13 +117,11 @@ STA
 Physical Verification
  ↓
 GDSII
-
 ```
-The flow performs multiple stages of optimization and verification to obtain a manufacturable physical implementation.
 
 ## Physical Design
 
-Physical design converts the synthesized logical representation of a circuit into a physical arrangement of cells and interconnects.
+Physical design converts the synthesized logical representation of a circuit into a physical arrangement of standard cells, macros, and interconnects.
 
 The major physical design stages include:
 
@@ -133,16 +149,31 @@ Extracts the resistance and capacitance introduced by physical interconnects.
 
 Checks the physical implementation against manufacturing and connectivity requirements.
 
-## Practical Work
+---
 
-The following physical design stages were performed during the training:
+## Practical Work – Synthesis
 
-- Synthesis
-- Floorplanning
-- Placement
-- Layout inspection using Magic
+The synthesis stage was performed using **Yosys** with the SKY130 standard-cell library.
 
-The corresponding results are documented in the following sections.
+The RTL was synthesized into a gate-level netlist mapped to SKY130 standard cells.
+
+### Synthesis Statistics
+
+The synthesis generated the following statistics:
+
+- Number of wires: **14,596**
+- Number of wire bits: **14,978**
+- Number of public wires: **1,565**
+- Number of cells: **14,876**
+- Reported chip area: **147,712.918400**
+
+The synthesis report also contains the breakdown of the different SKY130 standard-cell instances used in the synthesized design.
+
+![Synthesis Statistics](images/synthesis_statistics_1.png)
+
+![Synthesis Cell Statistics and Chip Area](images/synthesis_statistics_2.png)
+
+---
 
 ## Learning Outcomes
 
@@ -151,10 +182,14 @@ After completing this module, I gained an understanding of:
 - The transition from RTL to physical implementation
 - The role of a PDK in ASIC design
 - The OpenLane RTL-to-GDSII flow
-- The purpose of floorplanning
-- The purpose of placement
+- The purpose of RTL synthesis
+- The role of Yosys in synthesis
+- The purpose of floorplanning and placement
 - The relationship between logical synthesis and physical implementation
 - The role of open-source EDA tools in ASIC design
+- The major stages involved in an ASIC physical design flow
+
+---
 
 ## Status
 
@@ -162,8 +197,8 @@ After completing this module, I gained an understanding of:
 |---|---|
 | RTL Design | ✅ Completed |
 | Synthesis | ✅ Completed |
-| Floorplanning | ✅ Completed |
-| Placement | ✅ Completed |
+| Floorplanning | ⏭️ Covered in Day 7 |
+| Placement | ⏭️ Covered in Day 7 |
 | Clock Tree Synthesis | ⏳ To be covered |
 | Routing | ⏳ To be covered |
 | Parasitic Extraction | ⏳ To be covered |
