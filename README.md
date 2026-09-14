@@ -68,6 +68,14 @@ VSDIAT-Chip-Design/
 │   └── images/
 │       └── Physical Design theory and practical results
 │
+├── Day_8/
+│   ├── README.md
+│   └── images/
+│       ├── vsdstdcelldesign.png
+│       ├── spice_inverter.png
+│       ├── transient_data.png
+│       └── transient_analysis.png
+│
 └── BabySoc/
     ├── README.md
     ├── rtl/
@@ -89,6 +97,7 @@ VSDIAT-Chip-Design/
 | Day 5 | Advanced Verilog Constructs and RTL Coding Practices  | ✅ Completed |
 | Day 6 | Introduction to Physical Design and OpenLane          | ✅ Completed |
 | Day 7 | Floorplanning, Placement and Physical Design Concepts | ✅ Completed |
+| Day 8 | CMOS Fundamentals, Fabrication, SPICE, SKY130 and Custom Standard-Cell Design | ✅ Completed |
 
 ---
 
@@ -275,6 +284,68 @@ Timing characterization and cell characterization were introduced as theory. The
 The complete Day 7 documentation and screenshots are available in [`Day_7/`](Day_7/).
 
 ---
+
+---
+
+# Day 8 – CMOS Fundamentals, Fabrication, SPICE, SKY130 and Custom Standard-Cell Design
+
+Day 8 focused on connecting **CMOS fundamentals and semiconductor fabrication concepts** with practical standard-cell layout and SPICE simulation using the **SKY130** technology.
+
+### Topics Covered
+
+* SPICE deck description
+* CMOS robustness
+* 16-mask CMOS fabrication process
+* CMOS inverter
+* SkyWater and SKY130 PDK
+* Introduction to Magic
+* Custom standard-cell inverter layout
+* Layout-to-SPICE extraction
+* ngspice transient simulation
+* Transient waveform analysis
+
+### Practical Work
+
+The practical work included:
+
+```text
+CMOS Inverter
+      ↓
+Custom Standard-Cell Layout
+      ↓
+Magic Extraction
+      ↓
+SPICE Representation
+      ↓
+ngspice Transient Simulation
+      ↓
+Waveform Analysis
+```
+
+### Practical Evidence
+
+#### Custom SKY130 Standard-Cell Inverter
+
+![Custom SKY130 CMOS Inverter Layout](Day_8/images/vsdstdcelldesign.png)
+
+#### SPICE Inverter
+
+![SPICE Inverter](Day_8/images/spice_inverter.png)
+
+#### ngspice Transient Simulation
+
+![ngspice Transient Simulation](Day_8/images/transient_data.png)
+
+#### Transient Waveform
+
+![Transient Waveform](Day_8/images/transient_analysis.png)
+
+The complete Day 8 documentation and practical screenshots are available in [`Day_8/`](Day_8/).
+
+### References
+
+* [SkyWater SKY130 PDK Documentation](https://skywater-pdk.readthedocs.io/en/main/)
+* [Magic VLSI Layout Tool](https://opencircuitdesign.com/magic/)
 
 # BabySoC Project
 
