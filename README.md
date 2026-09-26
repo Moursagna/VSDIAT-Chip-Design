@@ -2,7 +2,7 @@
 
 This repository documents my learning journey through the **VSDIAT (VLSI System Design – Anurag Institute Chip Design Program)**.
 
-It contains my RTL design experiments, Verilog simulations, synthesis work, SKY130 technology mapping, gate-level netlists, waveform analysis, ASIC physical-design work, OpenLane experiments, and the ongoing **BabySoC** implementation.
+It contains my RTL design experiments, Verilog simulations, synthesis work, SKY130 technology mapping, gate-level netlists, waveform analysis, ASIC physical-design work, OpenLane experiments, timing analysis, and the ongoing **BabySoC** implementation.
 
 The repository is organized by training days/modules and practical projects.
 
@@ -10,30 +10,30 @@ The repository is organized by training days/modules and practical projects.
 
 ## 👨‍🎓 Student Information
 
-| Field      | Details                                         |
-| ---------- | ----------------------------------------------- |
-| Name       | Moursagna Rao                                   |
-| University | Anurag University                               |
-| Program    | B.Tech                                          |
-| Branch     | Electronics and Communication Engineering (ECE) |
+| Field | Details |
+|---|---|
+| Name | Moursagna Rao |
+| University | Anurag University |
+| Program | B.Tech |
+| Branch | Electronics and Communication Engineering (ECE) |
 
 ---
 
 ## 🛠 Development Environment
 
-| Tool / Environment | Purpose                            |
-| ------------------ | ---------------------------------- |
-| Windows 11         | Host Operating System              |
-| Ubuntu VSDIAT VDI  | Linux development environment      |
-| Oracle VirtualBox  | Virtualization                     |
-| Icarus Verilog     | RTL and gate-level simulation      |
-| GTKWave            | Waveform analysis                  |
-| Yosys              | RTL synthesis                      |
-| OpenLane           | RTL-to-GDSII physical-design flow  |
-| OpenSTA            | Static Timing Analysis             |
-| OpenROAD           | Physical design implementation     |
-| Magic              | Physical layout inspection         |
-| SKY130 HD          | Standard-cell library / technology |
+| Tool / Environment | Purpose |
+|---|---|
+| Windows 11 | Host Operating System |
+| Ubuntu VSDIAT VDI | Linux development environment |
+| Oracle VirtualBox | Virtualization |
+| Icarus Verilog | RTL and gate-level simulation |
+| GTKWave | Waveform analysis |
+| Yosys | RTL synthesis |
+| OpenLane | RTL-to-GDSII physical-design flow |
+| OpenSTA | Static Timing Analysis |
+| OpenROAD | Physical design implementation |
+| Magic | Physical layout inspection |
+| SKY130 HD | Standard-cell library / technology |
 
 ---
 
@@ -66,15 +66,18 @@ VSDIAT-Chip-Design/
 ├── Day_7/
 │   ├── README.md
 │   └── images/
-│       └── Physical Design theory and practical results
 │
 ├── Day_8/
+│   └── README.md
+│
+├── Day_9/
+│   └── README.md
+│
+├── Day_10/
 │   ├── README.md
-│   └── images/
-│       ├── vsdstdcelldesign.png
-│       ├── spice_inverter.png
-│       ├── transient_data.png
-│       └── transient_analysis.png
+│   ├── SKY130_D5_SK1_Routing_and_Design/
+│   ├── SKY130_D5_SK2_Power_Distribution/
+│   └── SKY130_D5_SK3_TritonRoute_Features/
 │
 └── BabySoc/
     ├── README.md
@@ -84,20 +87,24 @@ VSDIAT-Chip-Design/
     └── results/
 ```
 
+> Day 10 contains **SKY130 Module 5**. The detailed module documentation and practical screenshots are maintained inside `Day_10/`, rather than in this root README.
+
 ---
 
 # Course Progress
 
-| Day   | Topic                                                 | Status      |
-| ----- | ----------------------------------------------------- | ----------- |
-| Day 1 | Introduction to Verilog RTL Design and Synthesis      | ✅ Completed |
-| Day 2 | RTL Synthesis and Optimization                        | ✅ Completed |
-| Day 3 | Combinational, Sequential and Counter Optimization    | ✅ Completed |
-| Day 4 | RTL vs Gate-Level Simulation and Synthesis Behavior   | ✅ Completed |
-| Day 5 | Advanced Verilog Constructs and RTL Coding Practices  | ✅ Completed |
-| Day 6 | Introduction to Physical Design and OpenLane          | ✅ Completed |
+| Day | Topic | Status |
+|---|---|---|
+| Day 1 | Introduction to Verilog RTL Design and Synthesis | ✅ Completed |
+| Day 2 | RTL Synthesis and Optimization | ✅ Completed |
+| Day 3 | Combinational, Sequential and Counter Optimization | ✅ Completed |
+| Day 4 | RTL vs Gate-Level Simulation and Synthesis Behavior | ✅ Completed |
+| Day 5 | Advanced Verilog Constructs and RTL Coding Practices | ✅ Completed |
+| Day 6 | Introduction to Physical Design and OpenLane | ✅ Completed |
 | Day 7 | Floorplanning, Placement and Physical Design Concepts | ✅ Completed |
 | Day 8 | CMOS Fundamentals, Fabrication, SPICE, SKY130 and Custom Standard-Cell Design | ✅ Completed |
+| Day 9 | SKY130 Module 4 – Timing Analysis, CTS and Post-CTS STA | ✅ Completed |
+| Day 10 | SKY130 Module 5 – Routing, Power Distribution and TritonRoute | ✅ Completed |
 
 ---
 
@@ -235,7 +242,6 @@ The practical work included:
 * Synthesis
 * Synthesis statistics analysis
 * Floorplanning
-* Placement
 * Physical layout inspection using Magic
 
 The complete Day 6 documentation is available in [`Day_6/`](Day_6/).
@@ -285,8 +291,6 @@ The complete Day 7 documentation and screenshots are available in [`Day_7/`](Day
 
 ---
 
----
-
 # Day 8 – CMOS Fundamentals, Fabrication, SPICE, SKY130 and Custom Standard-Cell Design
 
 Day 8 focused on connecting **CMOS fundamentals and semiconductor fabrication concepts** with practical standard-cell layout and SPICE simulation using the **SKY130** technology.
@@ -306,7 +310,7 @@ Day 8 focused on connecting **CMOS fundamentals and semiconductor fabrication co
 
 ### Practical Work
 
-The practical work included:
+The practical work followed:
 
 ```text
 CMOS Inverter
@@ -322,30 +326,113 @@ ngspice Transient Simulation
 Waveform Analysis
 ```
 
-### Practical Evidence
-
-#### Custom SKY130 Standard-Cell Inverter
-
-![Custom SKY130 CMOS Inverter Layout](Day_8/images/vsdstdcelldesign.png)
-
-#### SPICE Inverter
-
-![SPICE Inverter](Day_8/images/spice_inverter.png)
-
-#### ngspice Transient Simulation
-
-![ngspice Transient Simulation](Day_8/images/transient_data.png)
-
-#### Transient Waveform
-
-![Transient Waveform](Day_8/images/transient_analysis.png)
-
 The complete Day 8 documentation and practical screenshots are available in [`Day_8/`](Day_8/).
 
-### References
+---
 
-* [SkyWater SKY130 PDK Documentation](https://skywater-pdk.readthedocs.io/en/main/)
-* [Magic VLSI Layout Tool](https://opencircuitdesign.com/magic/)
+# Day 9 – SKY130 Module 4: Timing Analysis, CTS and Post-CTS STA
+
+Day 9 focused on the timing-aware stage of the SKY130 ASIC physical-design flow.
+
+### Topics Covered
+
+* Standard-cell timing models and delay tables
+* Input slew and output load
+* Cell and buffer delay
+* Setup and hold timing
+* Ideal-clock and real-clock analysis
+* Clock Tree Synthesis (CTS)
+* Clock distribution and buffering
+* Clock skew and clock insertion delay
+* Physical placement and implementation effects
+* Post-CTS timing
+* Static Timing Analysis (STA)
+* Slack, WNS and TNS
+* Timing violations and timing closure
+
+### Learning Flow
+
+```text
+Timing Models
+      ↓
+Setup / Hold Analysis
+      ↓
+Clock Tree Synthesis
+      ↓
+Physical Implementation
+      ↓
+Post-CTS Timing
+      ↓
+STA
+      ↓
+WNS / TNS
+```
+
+Day 9 established the relationship between **cell timing, physical clock distribution, interconnect effects and timing closure**.
+
+The complete Day 9 documentation and screenshots are available in [`Day_9/`](Day_9/).
+
+---
+
+# Day 10 – SKY130 Module 5: Routing, Power Distribution and TritonRoute
+
+Day 10 covers **SKY130 Module 5**, focusing on the routing stage and related physical-design concepts.
+
+## Module 5 Structure
+
+### SKY130_D5_SK1 – Routing and Design
+
+* Introduction to maze routing
+* Lee's algorithm
+* Routing and parasitic extraction
+* Completed routing and routed-design inspection
+
+### SKY130_D5_SK2 – Power Distribution
+
+* Power Distribution Network concepts
+* PDN generation
+* PDN-generation failure analysis
+* OpenDB/OpenROAD investigation
+* Power/ground BTerm handling
+* Source-level debugging and patch development
+
+### SKY130_D5_SK3 – TritonRoute Features
+
+* Fast and detailed routing
+* Preprocessed route guides
+* Parallel and sequential panel routing
+* Connectivity and access points
+* Routing topology concepts
+
+### Practical Routing Flow
+
+```text
+Floorplan
+    ↓
+Placement
+    ↓
+CTS
+    ↓
+Routing
+    ↓
+Parasitic Extraction
+    ↓
+Routed DEF / SPEF
+    ↓
+Physical Layout Inspection
+```
+
+### Practical Status
+
+The `picorv32a` routing stage completed successfully and produced routed design data including the routed DEF and SPEF.
+
+PDN generation was also investigated in depth. The observed OpenLane/OpenROAD error involved an existing power/ground BTerm being recreated, causing a `NULL` object to reach `setSpecial`. A defensive source-level patch was developed to reuse an existing BTerm when present.
+
+**PDN generation should not be represented as successfully completed based on the original failing run.** The documented achievement is the debugging, root-cause analysis and patch development.
+
+The detailed Module 5 documentation is maintained under [`Day_10/`](Day_10/).
+
+---
 
 # BabySoC Project
 
@@ -421,20 +508,20 @@ GDSII
 
 ### Current BabySoC Progress
 
-| Stage                     | Status      |
-| ------------------------- | ----------- |
-| BabySoC RTL               | ✅ Completed |
-| Pre-Synthesis Simulation  | ✅ Completed |
-| Yosys Synthesis           | ✅ Completed |
+| Stage | Status |
+|---|---|
+| BabySoC RTL | ✅ Completed |
+| Pre-Synthesis Simulation | ✅ Completed |
+| Yosys Synthesis | ✅ Completed |
 | SKY130 Technology Mapping | ✅ Completed |
-| Gate-Level Netlist        | ✅ Completed |
+| Gate-Level Netlist | ✅ Completed |
 | Post-Synthesis Simulation | ✅ Completed |
-| Static Timing Analysis    | 🔄 Upcoming |
-| Floorplanning             | ⏳ Upcoming  |
-| Placement                 | ⏳ Upcoming  |
-| Clock Tree Synthesis      | ⏳ Upcoming  |
-| Routing                   | ⏳ Upcoming  |
-| GDSII                     | ⏳ Upcoming  |
+| Static Timing Analysis | 🔄 Upcoming |
+| Floorplanning | ⏳ Upcoming |
+| Placement | ⏳ Upcoming |
+| Clock Tree Synthesis | ⏳ Upcoming |
+| Routing | ⏳ Upcoming |
+| GDSII | ⏳ Upcoming |
 
 ---
 
@@ -470,6 +557,7 @@ The overall objective of this repository is to build a strong foundation in the 
 * Routing
 * Parasitic extraction
 * Static Timing Analysis
+* Power Distribution Network concepts
 * Physical verification
 * GDSII generation
 
@@ -481,6 +569,8 @@ The overall objective of this repository is to build a strong foundation in the 
 * Netlist inspection
 * Physical layout inspection
 * Git and GitHub based project documentation
+* OpenROAD/OpenDB debugging
+* Timing and physical-design analysis
 
 ---
 
@@ -507,16 +597,20 @@ Floorplanning
       ↓
 Placement
       ↓
-        ┌───────────────────────────────┐
-        │ Upcoming Physical Design Work │
-        │                               │
-        │ CTS                           │
-        │ Routing                       │
-        │ Parasitic Extraction          │
-        │ STA                            │
-        │ Physical Verification         │
-        │ GDSII                         │
-        └───────────────────────────────┘
+Clock Tree Synthesis
+      ↓
+Routing
+      ↓
+Parasitic Extraction
+      ↓
+Timing Analysis / Post-CTS STA
+      ↓
+Advanced Physical-Design Debugging
+      ↓
+Next Stages
+   ├── STA expansion
+   ├── Physical Verification
+   └── GDSII
 ```
 
 ---
@@ -525,7 +619,7 @@ Placement
 
 **Moursagna Rao**
 
-B.Tech – Electronics and Communication Engineering
+B.Tech – Electronics and Communication Engineering  
 Anurag University
 
 ---
