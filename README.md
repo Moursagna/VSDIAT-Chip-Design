@@ -436,9 +436,9 @@ The detailed Module 5 documentation is maintained under [`Day_10/`](Day_10/).
 
 # BabySoC Project
 
-The **BabySoC** project is the main practical SoC implementation work in this repository.
+The **BabySoC** project is the main practical SoC implementation work in this repository. It applies concepts from RTL design, simulation, synthesis, static timing analysis, and physical design to a larger design.
 
-It connects the concepts learned throughout the VSDIAT training and applies them to a larger design.
+For the detailed project documentation, architecture, simulation and synthesis evidence, and implementation notes, see [`BabySoc/README.md`](BabySoc/README.md).
 
 ## BabySoC Architecture
 
@@ -470,21 +470,13 @@ The BabySoC contains three major blocks:
 
 ### Main Blocks
 
-* **RVMyth** – RISC-V based digital processor core
-* **AVSDPLL** – PLL block used for clock generation
-* **AVSDDAC** – DAC block used for converting the processor's digital output
+- **RVMyth** — RISC-V-based digital processor core
+- **AVSDPLL** — PLL block used for clock generation
+- **AVSDDAC** — DAC block used to convert the processor's digital output
 
-The top-level module is:
-
-```text
-vsdbabysoc
-```
-
----
+The top-level module is `vsdbabysoc`.
 
 ## BabySoC ASIC Flow
-
-The BabySoC is being taken through the following stages:
 
 ```text
 RTL Design
@@ -499,31 +491,53 @@ Gate-Level Netlist
     ↓
 Post-Synthesis Simulation
     ↓
-Static Timing Analysis
+Pre-Layout Static Timing Analysis
     ↓
-Physical Design
+Floorplanning
     ↓
-GDSII
+Placement
+    ↓
+Clock Tree Synthesis (CTS)
+    ↓
+Routing
+    ↓
+Post-Route Static Timing Analysis
+    ↓
+Further Physical Verification and Closure
 ```
 
-### Current BabySoC Progress
+## Current BabySoC Progress
 
-| Stage | Status |
-|---|---|
-| BabySoC RTL | ✅ Completed |
-| Pre-Synthesis Simulation | ✅ Completed |
-| Yosys Synthesis | ✅ Completed |
-| SKY130 Technology Mapping | ✅ Completed |
-| Gate-Level Netlist | ✅ Completed |
-| Post-Synthesis Simulation | ✅ Completed |
-| Static Timing Analysis | 🔄 Upcoming |
-| Floorplanning | ⏳ Upcoming |
-| Placement | ⏳ Upcoming |
-| Clock Tree Synthesis | ⏳ Upcoming |
-| Routing | ⏳ Upcoming |
-| GDSII | ⏳ Upcoming |
+| Stage | Status | Notes |
+|---|---|---|
+| BabySoC RTL | Completed | RTL used in the documented flow |
+| Pre-synthesis simulation | Completed | Functional simulation with Icarus Verilog / GTKWave |
+| Yosys synthesis | Completed | Logic synthesis and optimization |
+| SKY130 technology mapping | Completed | `sky130_fd_sc_hd` standard-cell library |
+| Gate-level netlist | Generated | Used for post-synthesis simulation |
+| Post-synthesis simulation | Completed | Functional gate-level simulation |
+| Pre-layout STA | Executed | 18-corner analysis documented |
+| Floorplanning | Executed | Evidence includes a report of 17 unconstrained pins |
+| Placement | Executed | Placement-stage evidence documented |
+| Clock Tree Synthesis | Executed | CTS-stage evidence documented |
+| Routing | Executed | Routing evidence available; short violations were observed in the available DRC report |
+| Post-route STA | Executed | 16-corner analysis documented; execution does not itself prove timing closure |
+| DRC/LVS/signoff | Not established | No claim of clean signoff |
+| Final merged GDSII | Not established | No claim of verified, signoff-ready top-level GDSII |
 
----
+### Physical-Design Documentation
+
+The detailed evidence is organized under `BabySoc/physical_design/`:
+
+- [`Pre-layout STA`](BabySoc/physical_design/pre_layout_sta/)
+- [`Floorplanning`](BabySoc/physical_design/floorplanning/)
+- [`Placement`](BabySoc/physical_design/placement/)
+- [`Clock Tree Synthesis`](BabySoc/physical_design/cts/)
+- [`Routing`](BabySoc/physical_design/routing/)
+- [`Post-route STA`](BabySoc/physical_design/post_route_sta/)
+- [Overall physical-design README](BabySoc/physical_design/README.md)
+
+**Important:** The STA results must be interpreted using the constraints, corner definitions, units, and source reports. Negative slack indicates a timing violation for the corresponding analyzed path and constraints. The available routing DRC evidence includes short violations, so the design must not be described as DRC-clean based on the current evidence. Likewise, completion of post-route STA does not establish that every timing corner passes, nor does it establish LVS cleanliness, signoff readiness, or successful final top-level GDSII generation.
 
 # Learning Objectives
 
