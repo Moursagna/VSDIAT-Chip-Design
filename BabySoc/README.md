@@ -1,26 +1,24 @@
-# VSDIAT BabySoC – RTL to Post-Synthesis Flow
+# VSDIAT BabySoC — RTL, Synthesis, Static Timing Analysis and Physical Design
 
-This repository documents my hands-on work on **BabySoC design and ASIC implementation flow** as part of my VSDIAT / VLSI training.
+This repository documents my hands-on work on **BabySoC design and ASIC implementation** as part of my VSDIAT / VLSI training. The project records the flow from RTL and functional simulation through synthesis, multi-corner static timing analysis (STA), and the physical-design stages reached so far.
 
-The project focuses on understanding how a **System-on-Chip (SoC)** moves from **RTL description to a synthesized gate-level implementation**, followed by functional post-synthesis simulation.
+> **Scope note:** The documented work currently extends through post-route STA. This README does not claim that the design is timing-closed, DRC-clean, LVS-clean, or ready for tape-out. See the physical-design evidence and limitations in [`physical_design/README.md`](physical_design/README.md).
 
 ---
 
 ## Project Overview
 
-The BabySoC consists of three major blocks:
+The BabySoC contains three major blocks:
 
-- **RVMyth** – RISC-V based digital processor core
-- **AVSDPLL** – PLL block used for clock generation
-- **AVSDDAC** – DAC block used to convert the digital output from the processor
+- **RVMyth** — RISC-V-based digital processor core
+- **AVSDPLL** — PLL block used for clock generation
+- **AVSDDAC** — DAC block that converts the processor's digital output
 
 The top-level module is:
 
 ```text
 vsdbabysoc
 ```
-
----
 
 ## BabySoC Architecture
 
@@ -48,11 +46,7 @@ vsdbabysoc
                                                     OUT
 ```
 
----
-
 ## Design Hierarchy
-
-The top-level BabySoC hierarchy contains:
 
 ```text
 vsdbabysoc
@@ -61,177 +55,113 @@ vsdbabysoc
 └── avsddac
 ```
 
-The `rvmyth` block contains the main digital processing logic and generates the 10-bit:
-
-```text
-RV_TO_DAC[9:0]
-```
-
-This digital signal is provided to the DAC block.
-
-The PLL generates the clock used by the digital core.
+The `rvmyth` block contains the main digital processing logic and generates the 10-bit bus `RV_TO_DAC[9:0]`, which is provided to the DAC. The PLL supplies the clock used by the digital core.
 
 ---
 
-# ASIC Design Flow
-
-The BabySoC is being taken through the following stages:
-
-```text
-RTL Design
-    │
-    ▼
-Pre-Synthesis Simulation
-    │
-    ▼
-Logic Synthesis
-    │
-    ▼
-Technology Mapping
-    │
-    ▼
-Gate-Level Netlist
-    │
-    ▼
-Post-Synthesis Simulation
-    │
-    ▼
-Static Timing Analysis
-    │
-    ▼
-Physical Design
-```
-
----
-
-## Current Progress
-
-| Stage | Status |
-|---|---|
-| BabySoC RTL | ✅ Completed |
-| Pre-Synthesis Simulation | ✅ Completed |
-| Yosys Synthesis | ✅ Completed |
-| SKY130 Technology Mapping | ✅ Completed |
-| Gate-Level Netlist | ✅ Completed |
-| Post-Synthesis Simulation | ✅ Completed |
-| Static Timing Analysis | 🔄 Upcoming |
-| Floorplanning | ⏳ Upcoming |
-| Placement | ⏳ Upcoming |
-| CTS | ⏳ Upcoming |
-| Routing | ⏳ Upcoming |
-| GDSII | ⏳ Upcoming |
-
----
-
-# 1. RTL Design
-
-The BabySoC RTL is described using **Verilog HDL**.
-
-Important modules include:
-
-```text
-rtl/
-├── vsdbabysoc.v
-├── rvmyth.v
-└── clk_gate.v
-```
-
-The top-level module is:
-
-```text
-vsdbabysoc
-```
-
-At the RTL level, the design describes the intended hardware behavior without being tied to individual physical standard cells.
-
----
-
-# 2. Pre-Synthesis Simulation
-
-Before synthesis, the RTL was simulated using:
-
-- **Icarus Verilog**
-- **GTKWave**
-
-The simulation verifies the functional behavior of the RTL implementation.
-
-## Simulation Flow
+## Implementation Flow
 
 ```text
 RTL
  │
  ▼
-Icarus Verilog
+Pre-Synthesis Functional Simulation
  │
  ▼
-VCD waveform
+Yosys Logic Synthesis
  │
  ▼
-GTKWave
+SKY130 Technology Mapping
+ │
+ ▼
+Gate-Level Netlist
+ │
+ ▼
+Post-Synthesis Functional Simulation
+ │
+ ▼
+Pre-Layout Static Timing Analysis
+ │
+ ▼
+Floorplanning
+ │
+ ▼
+Placement
+ │
+ ▼
+Clock Tree Synthesis (CTS)
+ │
+ ▼
+Routing
+ │
+ ▼
+Post-Route Static Timing Analysis
+ │
+ ▼
+Further Physical Verification / Closure (not claimed complete)
 ```
 
-## Important Signals
+## Project Progress
 
-The following signals were observed during the simulation:
+| Stage | Status | Notes |
+|---|---|---|
+| RTL design | Completed | BabySoC RTL used for the documented flow |
+| Pre-synthesis simulation | Completed | Icarus Verilog and GTKWave |
+| Yosys synthesis | Completed | Logic optimization and synthesis |
+| SKY130 technology mapping | Completed | `sky130_fd_sc_hd` library |
+| Gate-level netlist | Generated | Used for post-synthesis simulation |
+| Post-synthesis simulation | Completed | Functional gate-level simulation |
+| Pre-layout STA | Executed | 18-corner analysis documented |
+| Floorplanning | Executed | Floorplan evidence documented; unconstrained pins are noted |
+| Placement | Executed | Placement-stage evidence documented |
+| Clock tree synthesis | Executed | CTS-stage evidence documented |
+| Routing | Executed | Routing evidence exists; routing DRC short violations were observed |
+| Post-route STA | Executed | 16-corner results documented; completion does not itself prove timing closure |
+| DRC/LVS/signoff | Not established by this README | Do not interpret the available evidence as clean signoff |
+| Final merged GDSII | Not established by this README | No claim of a verified, signoff-ready top-level GDSII |
 
-```text
-CLK
-REF
-reset
-VCO_IN
-VREFH
-RV_TO_DAC[9:0]
-OUT
-```
-
-The `RV_TO_DAC[9:0]` bus represents the digital data generated by the processor and supplied to the DAC.
+For the detailed stage-by-stage evidence, results, and caveats, see [`physical_design/README.md`](physical_design/README.md).
 
 ---
 
-# 3. Logic Synthesis Using Yosys
+# 1. RTL Design
 
-**Yosys** was used to synthesize the BabySoC RTL.
+The BabySoC RTL is described using **Verilog HDL**. The existing RTL files are maintained in the repository's `rtl/` directory.
 
-The synthesis process converts the RTL description into a gate-level representation.
+The top-level module is `vsdbabysoc`. At RTL, the design describes intended hardware behavior without specifying every physical standard cell or the final layout.
 
-## Synthesis Flow
+# 2. Pre-Synthesis Simulation
+
+The RTL was simulated using:
+
+- **Icarus Verilog**
+- **GTKWave**
+
+The simulation flow is:
 
 ```text
-Read RTL
-   │
-   ▼
-Optimization
-   │
-   ▼
-Flip-Flop Mapping
-   │
-   ▼
-Logic Optimization and Technology Mapping
-   │
-   ▼
-SKY130 Standard Cells
-   │
-   ▼
-Gate-Level Netlist
+RTL → Icarus Verilog → VCD waveform → GTKWave
 ```
 
-The SKY130 standard-cell library used for synthesis is:
+Signals observed include `CLK`, `REF`, `reset`, `VCO_IN`, `VREFH`, `RV_TO_DAC[9:0]`, and `OUT`.
+
+# 3. Logic Synthesis Using Yosys
+
+**Yosys** was used to synthesize the RTL. The synthesis flow includes RTL reading, optimization, flip-flop mapping, logic optimization, and technology mapping.
+
+The target standard-cell library is:
 
 ```text
 sky130_fd_sc_hd
 ```
 
-The Liberty timing library used for synthesis is:
+The typical Liberty file used in the documented synthesis setup is:
 
 ```text
 sky130_fd_sc_hd__tt_025C_1v80.lib
 ```
 
----
-
-# 4. Synthesis Commands
-
-The major Yosys synthesis commands used were:
+Representative Yosys commands used in the flow include:
 
 ```text
 read_verilog
@@ -246,55 +176,22 @@ rename -enumerate
 write_verilog
 ```
 
-## Important Commands
+In brief:
 
-### `read_verilog`
+- `read_verilog` reads RTL source files.
+- `dfflibmap` maps flip-flops to library cells.
+- `opt` performs logic optimizations.
+- `abc` performs logic optimization and technology mapping using the target library.
+- `show` displays a design representation.
+- `flatten` removes module hierarchy by incorporating lower-level logic into the parent.
+- `setundef -zero` replaces undefined values with zero in the synthesized representation.
+- `clean -purge` removes unused or redundant objects.
+- `rename -enumerate` systematically renames generated objects.
+- `write_verilog` writes the resulting netlist.
 
-Reads the Verilog RTL source files into Yosys.
+# 4. SKY130 Technology Mapping and Gate-Level Netlist
 
-### `dfflibmap`
-
-Maps Yosys flip-flop representations to suitable flip-flop cells from the target standard-cell library.
-
-### `opt`
-
-Performs logic optimizations such as constant propagation and removal of redundant logic.
-
-### `abc`
-
-Performs logic optimization and technology mapping using the SKY130 Liberty library.
-
-### `show`
-
-Generates a graphical representation of the selected design or module.
-
-### `flatten`
-
-Removes module hierarchy by incorporating lower-level module logic into the parent module.
-
-### `setundef -zero`
-
-Converts undefined values in the synthesized representation to logic zero.
-
-### `clean -purge`
-
-Removes unused and redundant objects from the design.
-
-### `rename -enumerate`
-
-Renames generated objects systematically.
-
-### `write_verilog`
-
-Writes the resulting synthesized design as a Verilog gate-level netlist.
-
----
-
-# 5. SKY130 Technology Mapping
-
-After technology mapping, the design contains actual **SKY130 standard-cell instances** instead of only generic RTL or logic representations.
-
-Examples of mapped cells include:
+Technology mapping replaces generic logic with cells from the target standard-cell library. Examples of cell names include:
 
 ```text
 sky130_fd_sc_hd__nand2_1
@@ -305,67 +202,24 @@ sky130_fd_sc_hd__xor2_1
 sky130_fd_sc_hd__dfrtp_1
 ```
 
-The synthesis results contained thousands of standard-cell instances.
-
-This demonstrates the transformation from:
-
-```text
-RTL Description
-```
-
-to:
-
-```text
-Technology-Mapped Hardware Implementation
-```
-
----
-
-# 6. Gate-Level Netlist
-
-The synthesized BabySoC was written to:
+The synthesized netlist documented in the original flow is:
 
 ```text
 baby_soc_netlist3.v
 ```
 
-The generated netlist represents the synthesized implementation using SKY130 standard cells.
+The actual repository path should be checked if this file is moved or renamed.
 
-## Netlist Generation Flow
-
-```text
-RTL Verilog
-     │
-     ▼
-   Yosys
-     │
-     ▼
-Optimized Logic
-     │
-     ▼
-ABC Technology Mapping
-     │
-     ▼
-SKY130 Standard Cells
-     │
-     ▼
-Gate-Level Netlist
-```
-
-The gate-level netlist is used as the input for post-synthesis simulation.
-
----
-
-# 7. Post-Synthesis Simulation
+# 5. Post-Synthesis Simulation
 
 The synthesized netlist was simulated using:
 
-- **Icarus Verilog**
-- **SKY130 Verilog cell models**
-- **Original testbench**
-- **GTKWave**
+- Icarus Verilog
+- SKY130 Verilog cell models
+- The testbench
+- GTKWave
 
-The post-synthesis simulation was configured using:
+The documented compile-time options were:
 
 ```text
 -DPOST_SYNTH_SIM
@@ -373,106 +227,36 @@ The post-synthesis simulation was configured using:
 -DUNIT_DELAY=#1
 ```
 
-The SKY130 Verilog models provide the functional behavior of the standard cells used in the synthesized netlist.
+The functional gate-level simulation generated a VCD waveform. The RTL and synthesized waveforms were compared using signals including `CLK`, `REF`, `reset`, `RV_TO_DAC[9:0]`, and `OUT`.
 
-## Post-Synthesis Simulation Flow
+**Interpretation:** Functional gate-level simulation checks logical behavior under the applied testbench. It is not the same as timing-aware gate-level simulation and does not replace STA.
 
-```text
-Gate-Level Netlist
-        │
-        ├── SKY130 Cell Models
-        │
-        └── Testbench
-                │
-                ▼
-         Icarus Verilog
-                │
-                ▼
-      post_synth_sim.vcd
-                │
-                ▼
-            GTKWave
-```
+# 6. Static Timing Analysis and Physical Design
 
-The simulation completed successfully and generated the post-synthesis VCD waveform.
+The repository now documents the physical-design work from **pre-layout STA through post-route STA**. The detailed evidence is grouped under `physical_design/`:
 
----
+| Stage | Documentation / evidence |
+|---|---|
+| Pre-layout STA | [`physical_design/pre_layout_sta/`](physical_design/pre_layout_sta/) |
+| Floorplanning | [`physical_design/floorplanning/`](physical_design/floorplanning/) |
+| Placement | [`physical_design/placement/`](physical_design/placement/) |
+| Clock Tree Synthesis | [`physical_design/cts/`](physical_design/cts/) |
+| Routing | [`physical_design/routing/`](physical_design/routing/) |
+| Post-route STA | [`physical_design/post_route_sta/`](physical_design/post_route_sta/) |
+| Overall physical-design notes | [`physical_design/README.md`](physical_design/README.md) |
 
-# 8. RTL vs Post-Synthesis Verification
+### Important interpretation notes
 
-The pre-synthesis and post-synthesis simulations were compared using **GTKWave**.
+- **Pre-layout STA:** The documented analysis covers 18 corners. Negative setup slack indicates setup timing violations for the relevant constraints and corners. Check the included reports for exact metrics and units.
+- **Floorplanning:** The captured floorplan evidence reported 17 unconstrained pins. This should be documented as a constraint/setup limitation and investigated; it should not be hidden.
+- **Placement and CTS:** GUI screenshots demonstrate that stages were run, but screenshots alone do not establish placement quality, clock skew acceptability, or timing closure.
+- **Routing:** Routing-stage evidence is available, but short violations were observed in the available routing DRC report. Do not describe the routed design as DRC-clean unless a subsequent verified report supports that claim.
+- **Post-route STA:** The documented run completed analysis for 16 corners. Run completion is not equivalent to passing setup and hold timing at every corner. Interpret the reported slack according to the source report's definitions and units.
+- **GDSII and signoff:** Do not claim verified top-level GDSII generation, LVS cleanliness, signoff readiness, or timing closure unless the corresponding artifacts and reports are present and reviewed.
 
-The main signals examined were:
+# 7. Results and Existing Simulation Evidence
 
-```text
-CLK
-REF
-reset
-RV_TO_DAC[9:0]
-OUT
-```
-
-The synthesized implementation produced the expected functional activity observed in the RTL simulation.
-
-In particular, the `RV_TO_DAC[9:0]` digital output continues to show the expected sequence after synthesis, and the DAC output `OUT` continues to exhibit the expected waveform behavior.
-
-This indicates that the synthesized gate-level implementation preserves the functional behavior of the RTL for the applied testbench.
-
----
-
-# 9. Functional Simulation vs Timing Simulation
-
-The current post-synthesis simulation is primarily a **functional gate-level simulation**.
-
-This verifies that the synthesized gates produce the expected logical behavior.
-
-It should be distinguished from:
-
-- **Functional GLS**
-- **Timing GLS**
-
-## Functional GLS
-
-Functional Gate-Level Simulation verifies the logical behavior of the synthesized netlist using the standard-cell functional models.
-
-## Timing GLS
-
-Timing-aware Gate-Level Simulation additionally models propagation delays through cells and, depending on the stage of the flow, interconnect delays.
-
-Static Timing Analysis will be used later to verify timing constraints more systematically.
-
----
-
-# 10. Tools and Technologies
-
-## HDL
-
-- Verilog HDL
-
-## Simulation
-
-- Icarus Verilog
-- GTKWave
-
-## Synthesis
-
-- Yosys
-- ABC
-
-## Technology
-
-- SKY130
-- `sky130_fd_sc_hd` standard-cell library
-
-## Operating Environment
-
-- Linux
-
----
-
-# Results
-
-The following images provide visual evidence of the BabySoC implementation flow.
+The original results images remain linked below. Confirm that each file exists at the stated relative path and that the filename's capitalization matches the repository.
 
 ## BabySoC Architecture
 
@@ -484,88 +268,46 @@ The following images provide visual evidence of the BabySoC implementation flow.
 
 ## Synthesis Results
 
-![Synthesis Statistics](results/synthesis_statistics1.png)
+![Synthesis Statistics 1](results/synthesis_statistics1.png)
 
-![Synthesis Statistics](results/synthesis_statistics2.png)
+![Synthesis Statistics 2](results/synthesis_statistics2.png)
 
 ## Post-Synthesis Simulation
 
 ![Post-Synthesis Waveform](results/post_synthesis_waveform.png)
 
+Physical-design screenshots and reports are maintained separately under `physical_design/` so that the simulation/synthesis evidence and physical-design evidence remain organized.
+
+---
+
+# 8. Tools and Technologies
+
+| Area | Tools / technology |
+|---|---|
+| HDL | Verilog HDL |
+| Simulation | Icarus Verilog, GTKWave |
+| Synthesis | Yosys, ABC |
+| Standard-cell library | SKY130 `sky130_fd_sc_hd` |
+| Timing analysis | STA tooling and Liberty timing models |
+| Physical design | OpenROAD-based flow / OpenROAD GUI evidence |
+| Environment | Linux |
+
 ---
 
 # Key Learning
 
-Through the BabySoC implementation, I learned how an RTL-based SoC moves through the initial stages of an ASIC design flow.
+This project demonstrates the distinction between the main implementation representations:
 
-The main concepts learned include:
+- **RTL:** behavioral/structural hardware description.
+- **Synthesized netlist:** technology-mapped standard-cell connectivity.
+- **Physical implementation:** floorplan, placed cells, clock tree, and routed interconnect.
+- **STA:** constraint-based analysis of timing paths at specified corners; it is not a functional simulation.
+- **Physical verification:** DRC and LVS checks that must be supported by their own reports.
 
-- Understanding the hierarchy of a small SoC
-- RTL-based hardware description
-- Pre-synthesis functional simulation
-- Logic synthesis using Yosys
-- Logic optimization
-- Flip-flop mapping
-- Technology mapping using ABC
-- SKY130 standard-cell libraries
-- Gate-level netlists
-- Functional post-synthesis simulation
-- Comparing RTL and synthesized behavior
-- Understanding the difference between RTL, synthesized netlist, and physical implementation
+The central lesson is that progress through a flow stage does not automatically mean that the design passes that stage's quality checks. Timing, constraints, routing, and physical-verification results must be reviewed independently.
 
-## Major Takeaway
+## Current Milestone
 
-> Synthesis transforms an RTL description of hardware into an optimized implementation using cells from a target technology library while attempting to preserve the intended functional behavior.
+**Documented milestone:** RTL → post-synthesis functional simulation → pre-layout STA → floorplanning → placement → CTS → routing → post-route STA.
 
----
-
-# Current Milestone
-
-The BabySoC has successfully progressed through:
-
-```text
-RTL
-  ↓
-Pre-Synthesis Simulation
-  ↓
-Yosys Synthesis
-  ↓
-SKY130 Technology Mapping
-  ↓
-Gate-Level Netlist
-  ↓
-Post-Synthesis Simulation
-```
-
-## Next Stage
-
-The next major stage is:
-
-```text
-Static Timing Analysis (STA)
-```
-
-followed by the physical design stages of the ASIC flow:
-
-```text
-Static Timing Analysis
-        ↓
-Floorplanning
-        ↓
-Placement
-        ↓
-Clock Tree Synthesis
-        ↓
-Routing
-        ↓
-Physical Verification
-        ↓
-GDSII
-```
-
----
-
-## Project Status
-
-**Current :** RTL → Post-Synthesis Simulation ✅
-
+**Next engineering priority:** Review and resolve constraint issues and timing violations, investigate the reported routing DRC shorts, and collect verified reports for subsequent physical verification. Do not label the design signoff-ready until the relevant checks pass.
