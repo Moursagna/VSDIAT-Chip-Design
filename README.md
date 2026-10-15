@@ -6,6 +6,13 @@ It contains my RTL design experiments, Verilog simulations, synthesis work, SKY1
 
 The repository is organized by training days/modules and practical projects.
 
+
+Project Walkthrough Video
+
+Watch my project walkthrough covering Days 1–10 and the BabySoC guided project, from RTL design and synthesis through pre-layout STA, physical design, and post-route STA.
+
+https://drive.google.com/file/d/1gWQuItTwKyRN6vqT4pEMa3EiFafrveRz/view?usp=drivesdk
+
 ---
 
 ## 👨‍🎓 Student Information
